@@ -1,0 +1,20 @@
+{
+  "name": "lit-route",
+  "version": "0.1.0",
+  "description": "A client-side router for lit-html applications.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "router",
+    "lit-html"
+  ],
+  "author": "James Davies",
+  "license": "MIT",
+  "dependencies": {
+    "lit-html": "^0.9.0"
+  },
+  "typings": "dist/main.d.ts",
+  "files": ["dist"]
+}
