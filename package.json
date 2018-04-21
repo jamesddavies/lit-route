@@ -1,6 +1,6 @@
 {
   "name": "lit-route",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A client-side router for lit-html applications.",
   "main": "dist/index.js",
   "scripts": {
