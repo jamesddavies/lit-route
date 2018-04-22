@@ -45,7 +45,6 @@ export class Router {
 
         window.onpopstate = () => {
             this.render()
-            this.updateCurrentLink()
         }
     }
 
@@ -62,18 +61,9 @@ export class Router {
 
         this.forEachNode(litRouteLinks, (index: any) => {
             litRouteLinks[index].addEventListener('click', () => {
-                history.pushState(null, '', litRouteLinks[index].getAttribute('data-to'))
-                this.render()
-            })
-        })
-    }
-
-    updateCurrentLink(): void {
-        var litRouteLinks = document.querySelectorAll("a.lit-route-link")
-        
-        this.forEachNode(litRouteLinks, (index: any) => {
-            litRouteLinks[index].addEventListener('click', () => {
                 let path = litRouteLinks[index].getAttribute('data-to') || ""
+                history.pushState(null, '', path)
+                this.render()
                 if (!!matchPath(location.pathname, {path: path, exact: false})){
                     litRouteLinks[index].classList.add("current")
                 }
