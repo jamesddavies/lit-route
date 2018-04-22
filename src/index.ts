@@ -59,15 +59,26 @@ export class Router {
 
         var litRouteLinks = document.querySelectorAll("a.lit-route-link")
 
+        this.updateCurrentLinks(litRouteLinks)
+
         this.forEachNode(litRouteLinks, (index: any) => {
             litRouteLinks[index].addEventListener('click', () => {
                 let path = litRouteLinks[index].getAttribute('data-to') || ""
                 history.pushState(null, '', path)
                 this.render()
-                if (!!matchPath(location.pathname, {path: path, exact: false})){
-                    litRouteLinks[index].classList.add("current")
-                }
+                this.updateCurrentLinks(litRouteLinks)
             })
+        })
+    }
+
+    updateCurrentLinks(itemList: NodeListOf<Element>): void {
+        this.forEachNode(itemList, (index: any) => {
+            let path = itemList[index].getAttribute('data-to') || ""
+            if (!!matchPath(location.pathname, {path: path, exact: false})){
+                itemList[index].classList.add("current")
+            } else {
+                itemList[index].classList.remove("current")
+            }
         })
     }
 }
