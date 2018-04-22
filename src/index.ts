@@ -1,4 +1,4 @@
-import {TemplateResult, render} from 'lit-html'
+import {TemplateResult} from '../node_modules/lit-html/lit-html.js'
 
 export interface MatchObject {
     path: string | null
@@ -43,12 +43,12 @@ export class Router {
     constructor(render: Function){
         this.render = render
 
-        window.onpopstate = (event) => {
+        window.onpopstate = () => {
             this.render()
         }
     }
 
-    init(render: Function): void {
+    init(): void {
         this.render()
 
         var forEachNode = function (array: NodeList, callback: Function, scope?: any) {
@@ -59,7 +59,7 @@ export class Router {
 
         var litRouteLinks = document.querySelectorAll("a.lit-route-link")
 
-        forEachNode(litRouteLinks, (index: any, value: any) => {
+        forEachNode(litRouteLinks, (index: any) => {
             litRouteLinks[index].addEventListener('click', () => {
                 history.pushState(null, '', litRouteLinks[index].getAttribute('data-to'))
                 this.render()
@@ -114,7 +114,6 @@ export function matchPath(pathname: string, options: MatchPathOptions): MatchPat
 }
 
 function returnParameters(path: string): any {
-    const url = location.pathname
     const paramNames = path.split('/')
     const paramValues = location.pathname.split('/')
 

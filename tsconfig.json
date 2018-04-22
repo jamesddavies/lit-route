@@ -1,11 +1,21 @@
 {
   "compilerOptions": {
     "target": "es2017",
-    "module": "commonjs",
+    "module": "es2015",
     "lib": ["es2017", "esnext.asynciterable", "dom"],
-    "outDir": "./dist",
-    "strict": true,
     "declaration": true,
-    "rootDir": "src"
-  }
+    "sourceMap": true,
+    "inlineSources": true,
+    "outDir": "./",
+    // "rootDir": "./",                       /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": []
 }
