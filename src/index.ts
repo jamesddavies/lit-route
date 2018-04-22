@@ -45,6 +45,7 @@ export class Router {
 
         window.onpopstate = () => {
             this.render()
+            this.updateCurrentLink()
         }
     }
 
