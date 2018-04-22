@@ -48,21 +48,34 @@ export class Router {
         }
     }
 
+    forEachNode(array: NodeList, callback: Function, scope?: any): void {
+        for (var i = 0; i < array.length; i++) {
+          callback.call(scope, i, array[i]);
+        }
+    }
+
     init(): void {
         this.render()
 
-        var forEachNode = function (array: NodeList, callback: Function, scope?: any) {
-            for (var i = 0; i < array.length; i++) {
-              callback.call(scope, i, array[i]);
-            }
-        }
-
         var litRouteLinks = document.querySelectorAll("a.lit-route-link")
 
-        forEachNode(litRouteLinks, (index: any) => {
+        this.forEachNode(litRouteLinks, (index: any) => {
             litRouteLinks[index].addEventListener('click', () => {
                 history.pushState(null, '', litRouteLinks[index].getAttribute('data-to'))
                 this.render()
+            })
+        })
+    }
+
+    updateCurrentLink(): void {
+        var litRouteLinks = document.querySelectorAll("a.lit-route-link")
+        
+        this.forEachNode(litRouteLinks, (index: any) => {
+            litRouteLinks[index].addEventListener('click', () => {
+                let path = litRouteLinks[index].getAttribute('data-to') || ""
+                if (!!matchPath(location.pathname, {path: path, exact: false})){
+                    litRouteLinks[index].classList.add("current")
+                }
             })
         })
     }
