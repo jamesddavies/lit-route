@@ -1,5 +1,3 @@
-import {TemplateResult} from '../node_modules/lit-html/lit-html.js'
-
 export interface MatchObject {
     path: string | null
     url: string
@@ -9,31 +7,22 @@ export interface MatchObject {
 
 export class Route {
     path: string
-    component: TemplateResult | Function
+    component: Function
     exact?: boolean | undefined
 
-    constructor(path: string, component: TemplateResult | Function, exact?: boolean){
+    constructor(path: string, component: Function, exact?: boolean){
         this.path = path
         this.component = component
         this.exact = exact
     }
 
     match(): MatchObject | null {
-        const match = matchPath(location.pathname, {path: this.path, exact: this.exact})
-        return match
+        return matchPath(location.pathname, {path: this.path, exact: this.exact})
     }
 
-    renderComponent(match: MatchObject | null): TemplateResult | Function {
-        if (typeof this.component === 'object'){
-            return this.component
-        } else {
-            return this.component(match)
-        }
-    }
-
-    mount(): TemplateResult | Function | null {
+    mount(): Function | null {
         const match = this.match()
-        return !!match ? this.renderComponent(match) : null
+        return !!match ? this.component(match) : null
     }
 }
 
