@@ -28,9 +28,11 @@ export class Route {
 
 export class Router {
     render: Function
+    appRoot: HTMLElement
 
-    constructor(render: Function){
+    constructor(render: Function, appRoot: HTMLElement){
         this.render = render
+        this.appRoot = appRoot
 
         window.onpopstate = () => {
             this.render()
@@ -46,21 +48,27 @@ export class Router {
     init(): void {
         this.render()
 
-        var litRouteLinks = document.querySelectorAll("a.lit-route-link")
-
-        this.updateCurrentLinks(litRouteLinks)
-
-        this.forEachNode(litRouteLinks, (index: any) => {
-            litRouteLinks[index].addEventListener('click', () => {
-                let path = litRouteLinks[index].getAttribute('data-to') || ""
-                history.pushState(null, '', path)
-                this.render()
-                this.updateCurrentLinks(litRouteLinks)
-            })
+        this.appRoot.addEventListener('click', (e: Event) => {
+            const el: any = e.target
+            if (el.attributes.class){
+                if ((el.attributes.class.value.indexOf('lit-route-link') > -1)){
+                    let path = el.getAttribute('data-to') || ""
+                    this.reRender(path)
+                }
+            }
         })
+
+        this.updateCurrentLinks()
     }
 
-    updateCurrentLinks(itemList: NodeListOf<Element>): void {
+    reRender(path: string): void {
+        history.pushState(null, '', path)
+        this.render()
+        this.updateCurrentLinks()
+    }
+
+    updateCurrentLinks(): void {
+        let itemList = document.querySelectorAll("a.lit-route-link")
         this.forEachNode(itemList, (index: any) => {
             let path = itemList[index].getAttribute('data-to') || ""
             if (!!matchPath(location.pathname, {path: path, exact: false})){
