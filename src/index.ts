@@ -51,9 +51,19 @@ export class Router {
 
         this.appRoot.addEventListener('click', (e: Event) => {
             if (e.target instanceof HTMLElement){
-                if ((e.target.className.indexOf('lit-route-link') > -1)){
-                    let path = e.target.getAttribute('data-to') || ""
-                    this.reRender(path)
+                let parent = e.target.parentElement
+                if (e.target.className && (e.target.className.indexOf('lit-route-link') > -1)) {
+                    let path = e.target.getAttribute('data-to') || "";
+                    this.reRender(path);
+                } else if (parent){
+                    while (parent){
+                        if (parent.className && (parent.className.indexOf('lit-route-link') > -1)) {
+                            let path = parent.getAttribute('data-to') || "";
+                            this.reRender(path);
+                            break
+                        }
+                        parent = parent.parentElement
+                    }
                 }
             }
         })
