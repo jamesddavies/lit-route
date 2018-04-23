@@ -43,7 +43,7 @@ const DogRoute = new Route('/dog', () => DogComponent())
 const CatRoute = new Route('/cat', () => CatComponent())
 
 const Router = () => html`
-	${DogRoute().mount()}
+${DogRoute().mount()}
     ${CatRoute().mount()}
 `
 ```
