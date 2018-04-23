@@ -51,7 +51,7 @@ export class Router {
 
         this.appRoot.addEventListener('click', (e: Event) => {
             if (e.target instanceof HTMLElement){
-                if ((e.target.attributes.class.value.indexOf('lit-route-link') > -1)){
+                if ((e.target.className.indexOf('lit-route-link') > -1)){
                     let path = e.target.getAttribute('data-to') || ""
                     this.reRender(path)
                 }
