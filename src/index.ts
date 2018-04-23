@@ -36,6 +36,7 @@ export class Router {
 
         window.onpopstate = () => {
             this.render()
+			this.updateCurrentLinks()
         }
     }
 
@@ -49,10 +50,9 @@ export class Router {
         this.render()
 
         this.appRoot.addEventListener('click', (e: Event) => {
-            const el: any = e.target
-            if (el.attributes.class){
-                if ((el.attributes.class.value.indexOf('lit-route-link') > -1)){
-                    let path = el.getAttribute('data-to') || ""
+            if (e.target instanceof HTMLElement){
+                if ((e.target.attributes.class.value.indexOf('lit-route-link') > -1)){
+                    let path = e.target.getAttribute('data-to') || ""
                     this.reRender(path)
                 }
             }
