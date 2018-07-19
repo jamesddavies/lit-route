@@ -13,9 +13,13 @@
   "author": "James Davies",
   "license": "MIT",
   "dependencies": {},
-  "typings": "index.d.ts",
+  "types": "index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/jamesddavies/lit-route.git"
-  }
+  },
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ]
 }
