@@ -68,6 +68,31 @@ const DogLink = html`<a class='lit-route-link' data-to='/dog'>Dog Link</a>`
 
 lit-route doesn't have a Link class, but you can link to your routes by using an ```a``` element with the class ```'lit-route-link'``` and the data attribute ```data-to```.
 
+#### Private Routes
+
+```javascript
+import {PrivateRoute} from 'lit-route'
+
+var auth = false;
+
+const private = () => PrivateRoute('/dog', auth, () => dog(), () => cat())
+
+// If auth = true, the dog component will render, else the cat component will render.
+```
+
+As PrivateRoute is a function rather than a class, it doesn't need to be instantiated. Private routes don't currently support route parameters. A path can be passed in place of the last parameter - lit-route will then redirect to that path if the second parameter ('auth') is false.
+
+#### Redirect
+
+```javascript
+import {render} from 'lit-html'
+import {Redirect} from 'lit-route'
+
+Redirect('/path', render(app(), document.getElementById('appRoot')))
+```
+
+Redirect will simply force your app to the provided path. Some kind of render function must be given to the Redirect function, otherwise your url will update but nothing in the app will change.
+
 ---
 ## Development
 

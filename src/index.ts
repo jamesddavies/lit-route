@@ -26,6 +26,30 @@ export class Route {
     }
 }
 
+export function PrivateRoute(
+        path: string,
+        auth: boolean, 
+        privateComponent: Function, 
+        fallbackComponentOrRoute: Function | string
+    ): Function | null | void {
+    if (!auth){
+        if (fallbackComponentOrRoute instanceof Function){
+            return new Route(path, fallbackComponentOrRoute).mount();
+        } else {
+            Redirect(fallbackComponentOrRoute)
+        }
+    } else {
+        return new Route(path, privateComponent).mount();
+    }
+}
+
+export function Redirect(redirectPath: string, reRender?: Function): void {
+    history.pushState(null, '', redirectPath)
+    if (reRender){
+        reRender();
+    }
+}
+
 export class Router {
     render: Function
     appRoot: HTMLElement
