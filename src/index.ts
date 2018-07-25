@@ -30,16 +30,17 @@ export function PrivateRoute(
         path: string,
         auth: boolean, 
         privateComponent: Function, 
-        fallbackComponentOrRoute: Function | string
+        fallbackComponentOrRoute: Function | string,
+        exact?: boolean | undefined
     ): Function | null | void {
     if (!auth){
         if (fallbackComponentOrRoute instanceof Function){
-            return new Route(path, fallbackComponentOrRoute).mount();
+            return new Route(path, fallbackComponentOrRoute, exact).mount();
         } else {
             Redirect(fallbackComponentOrRoute)
         }
     } else {
-        return new Route(path, privateComponent).mount();
+        return new Route(path, privateComponent, exact).mount();
     }
 }
 
