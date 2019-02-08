@@ -78,7 +78,7 @@ const Router = () => html`
 `
 ```
 
-The DefaultRoute class will match any route that you haven't otherwise specified a path for - useful for implementing 404 pages or redirecting users to your homepage if they've followed an incorrect link.
+The DefaultRoute class will match any route that you haven't otherwise specified a path for - useful for implementing 404 pages or redirecting users to your homepage if they've followed an incorrect link. **NOTE:** The DefaultRoute *must* be the last route mounted - all the other routes need to be mounted before it so the DefaultRoute knows what routes are being used in your app.
 
 #### Private Routes
 
