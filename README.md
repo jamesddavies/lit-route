@@ -68,6 +68,18 @@ const DogLink = html`<a class='lit-route-link' data-to='/dog'>Dog Link</a>`
 
 lit-route doesn't have a Link class, but you can link to your routes by using an ```a``` element with the class ```'lit-route-link'``` and the data attribute ```data-to```.
 
+#### Default Routes
+
+```javascript
+import {DefaultRoute} from 'lit-route'
+
+const Router = () => html`
+    ${new DefaultRoute(() => NotFoundComponent()).mount()}
+`
+```
+
+The DefaultRoute class will match any route that you haven't otherwise specified a path for - useful for implementing 404 pages or redirecting users to your homepage if they've followed an incorrect link.
+
 #### Private Routes
 
 ```javascript

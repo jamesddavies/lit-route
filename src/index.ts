@@ -14,6 +14,7 @@ export class Route {
         this.path = path
         this.component = component
         this.exact = exact
+        Store.addRoute(this);
     }
 
     match(): MatchObject | null {
@@ -23,6 +24,18 @@ export class Route {
     mount(): Function | null {
         const match = this.match()
         return !!match ? this.component(match) : null
+    }
+}
+
+export class DefaultRoute {
+    component: Function;
+
+    constructor(component: Function){
+        this.component = component;
+    }
+
+    mount(): Function | null {
+        return !Store.routeExists(location.pathname) ? this.component() : null
     }
 }
 
@@ -183,3 +196,21 @@ function pathWithoutParameters(path: string): string {
 
     return pathArray.slice(1, firstParamIndex).join('/')
 }
+
+class RouteStore {
+    routes: Route[]
+
+    constructor(){
+        this.routes = [];
+    }
+
+    addRoute(route: Route): void {
+        this.routes.push(route);
+    }
+
+    routeExists(path: string): boolean {
+        return this.routes.filter((route: Route) => route.path === path).length > 0;
+    }
+}
+
+const Store = new RouteStore();
