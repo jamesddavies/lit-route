@@ -209,7 +209,7 @@ class RouteStore {
     }
 
     routeExists(path: string): boolean {
-        return this.routes.filter((route: Route) => route.path === path).length > 0;
+        return this.routes.filter((route: Route) => route.match()).length > 0;
     }
 }
 
