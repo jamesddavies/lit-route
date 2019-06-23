@@ -35,7 +35,7 @@ export class DefaultRoute {
     }
 
     mount(): Function | null {
-        return !Store.routeExists(location.pathname) ? this.component() : null
+        return !Store.routeExists() ? this.component() : null
     }
 }
 
@@ -208,8 +208,8 @@ class RouteStore {
         this.routes.push(route);
     }
 
-    routeExists(path: string): boolean {
-        return this.routes.filter((route: Route) => route.match()).length > 0;
+    routeExists(): boolean {
+        return this.routes.some((route: Route) => route.match() !== null);
     }
 }
 
